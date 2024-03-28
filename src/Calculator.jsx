@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import * as math from "mathjs";
 import "./styles.css";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
-  const [output, setResult] = useState("");
+  const [output, setOutput] = useState("");
 
   const removeExpression = () => {
-    setResult("");
+    setOutput("");
     setExpression("");
   };
 
@@ -16,10 +17,13 @@ const Calculator = () => {
 
   const calculate = () => {
     try {
-      setResult(eval(expression).toString());
+      // const fnCalculate = new Function("return " + expression);
+      // const result = fnCalculate();
+      const result = math.evaluate(expression);
+      setOutput(result.toString());
     } catch (error) {
       console.log(error);
-      setResult("Error");
+      setOutput("Error");
     }
   };
 
